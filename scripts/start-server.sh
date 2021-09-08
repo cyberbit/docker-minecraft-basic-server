@@ -79,7 +79,7 @@ if [ "${GAME_V}" == "params" ]; then
 	# 	sleep infinity
 	# fi
 	echo "---No additional checks in params mode, continuing!---"
-if [ "${GAME_V}" == "custom" ]; then
+elif [ "${GAME_V}" == "custom" ]; then
 	echo "---Custom mode enabled please make sure that '${JAR_NAME}.jar' is in the main directory!---"
 	if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
 		echo "---Can't find '${JAR_NAME}.jar' please make sure that it's in the main directory, putting server into sleep mode!---"
