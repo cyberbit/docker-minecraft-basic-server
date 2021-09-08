@@ -72,6 +72,13 @@ else
 fi
 
 echo "---Checking for Minecraft Server executable ---"
+if [ "${GAME_V}" == "params" ]; then
+	echo "---Params only mode enabled please make sure that your attributes are set!---"
+	# if [ ! -f $SERVER_DIR/${JAR_NAME} ]; then
+	# 	echo "---Can't find '${JAR_NAME}' please make sure that it's in the main directory, putting server into sleep mode!---"
+	# 	sleep infinity
+	# fi
+	echo "---No additional checks in params mode, continuing!---"
 if [ "${GAME_V}" == "custom" ]; then
 	echo "---Custom mode enabled please make sure that '${JAR_NAME}.jar' is in the main directory!---"
 	if [ ! -f $SERVER_DIR/${JAR_NAME}.jar ]; then
@@ -155,7 +162,14 @@ screen -wipe 2&>/dev/null
 
 echo "---Starting Server---"
 cd ${SERVER_DIR}
-screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java ${EXTRA_JVM_PARAMS} -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
+
+if [ "${GAME_V}" == "params" ]; then
+	echo "---Starting in params mode---"
+	screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java ${EXTRA_JVM_PARAMS} -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M nogui ${GAME_PARAMS}
+else
+	echo "---Starting in standard mode---"
+	screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java ${EXTRA_JVM_PARAMS} -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
+fi
 sleep 2
 if [ ! -f $SERVER_DIR/eula.txt ]; then
 	echo "---EULA not found please stand by...---"
