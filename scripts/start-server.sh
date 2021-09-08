@@ -166,7 +166,7 @@ cd ${SERVER_DIR}
 if [ "${GAME_V}" == "params" ]; then
 	echo "---Starting in params mode---"
 	cd ${SERVER_DIR}
-	screen -S Minecraft -L -Logfile ./masterLog.0 -d -m ./runtime/${RUNTIME_NAME}/bin/java ${EXTRA_JVM_PARAMS} -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M nogui ${GAME_PARAMS}
+	screen -S Minecraft -L -Logfile ./masterLog.0 -d -m ./runtime/${RUNTIME_NAME}/bin/java -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M nogui ${EXTRA_JVM_PARAMS} ${GAME_PARAMS}
 else
 	echo "---Starting in standard mode---"
 	screen -S Minecraft -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/runtime/${RUNTIME_NAME}/bin/java ${EXTRA_JVM_PARAMS} -Xmx${XMX_SIZE}M -Xms${XMS_SIZE}M -jar ${SERVER_DIR}/${JAR_NAME}.jar nogui ${GAME_PARAMS}
